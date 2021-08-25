@@ -8,6 +8,7 @@ import numpy as np
 import tensorflow as tf
 import config 
 from sklearn.preprocessing import MinMaxScaler
+from data_generator import DataGeneratorSeq
 
 # FOM1F72FDEKX3OCR
 data_source = 'kaggle' # alphavantage or kaggle
@@ -169,3 +170,13 @@ plt.xlabel('Date')
 plt.ylabel('Mid Price')
 plt.legend(fontsize=18)
 plt.show()
+
+dg = DataGeneratorSeq(train_data,5,5)
+u_data, u_labels = dg.unroll_batches()
+
+for ui,(dat,lbl) in enumerate(zip(u_data,u_labels)):   
+    print('\n\nUnrolled index %d'%ui)
+    dat_ind = dat
+    lbl_ind = lbl
+    print('\tInputs: ',dat )
+    print('\n\tOutput:',lbl)
